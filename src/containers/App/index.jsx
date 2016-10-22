@@ -2,10 +2,13 @@ import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Grid, Row, Col } from 'react-bootstrap';
 import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import TableMates from 'components/TableMates';
 import DialogConfirm from 'components/Dialog/Confirm';
 import DialogEdit from 'components/Dialog/Edit';
+import DialogCreate from 'components/Dialog/Create';
 import MATES_RAW_JSON from 'data/mates';
 import './style.scss';
 
@@ -19,6 +22,7 @@ export default class App extends React.Component {
         filterBy: '',
         showModalConfirm: false,
         showModalEdit: false,
+        showModalCreate: false,
         itemId: null
     };
 
@@ -32,6 +36,7 @@ export default class App extends React.Component {
             mates,
             showModalConfirm,
             showModalEdit,
+            showModalCreate,
             itemId
         } = this.state;
         return (
@@ -56,6 +61,13 @@ export default class App extends React.Component {
                         />
                     </Row>
                 </Grid>
+                <FloatingActionButton
+                    mini={true}
+                    style={{'position': 'fixed', 'top': '20px', 'right': '20px'}}
+                    onTouchTap={this.openCreateModal}
+                >
+                    <ContentAdd />
+                </FloatingActionButton>
                 <DialogConfirm
                     open={showModalConfirm}
                     onClose={this.closeModalConfirm}
@@ -66,11 +78,23 @@ export default class App extends React.Component {
                     open={showModalEdit}
                     onClose={this.closeModalEdit}
                     onSubmit={this.updateMate}
-                    initialItem={mates[itemId]}
+                    model={mates[itemId]}
+                />
+                <DialogCreate
+                    open={showModalCreate}
+                    onClose={this.closeModalCreate}
+                    onSubmit={this.createMate}
+                    model={mates[itemId]}
                 />
             </div>
         )
     }
+
+    openCreateModal = () => {
+        this.setState({
+            showModalCreate: true,
+        })
+    };
 
     onMateRequestDelete = (id) => {
         this.setState({
@@ -94,6 +118,14 @@ export default class App extends React.Component {
         })
     };
 
+    createMate = (mate) => {
+        const mates = this.state.mates.slice();
+        mates.push(mate);
+        this.setState({
+            mates
+        })
+    };
+
     deleteMate = (idx) => {
         const mates = this.state.mates.slice();
         mates.splice(idx, 1);
@@ -111,6 +143,12 @@ export default class App extends React.Component {
     closeModalEdit = () => {
         this.setState({
             showModalEdit: false
+        })
+    };
+
+    closeModalCreate = () => {
+        this.setState({
+            showModalCreate: false
         })
     };
 
