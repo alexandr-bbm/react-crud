@@ -8,14 +8,15 @@ $strip-row-bg: #f1f8e9;
 
 .table-mates {
     width: 100%;
+    table-layout: fixed;
+
+    .reactable-th-number {
+        width: 50px;
+    }
+
     th {
         &:focus {
             outline: none !important;
-        }
-
-        cursor: pointer;
-        &:focus {
-            font-weight: 600;
         }
     }
 
@@ -34,18 +35,11 @@ $strip-row-bg: #f1f8e9;
 
     }
 
-    td:not(:first-child) {
+    td {
         text-align: center;
     }
 
     tr:nth-child(even) {
         background-color: $strip-row-bg;
-    }
-
-    .reactable-header-sort-asc:after {
-        content: ' ▲';
-    }
-    .reactable-header-sort-desc:after {
-        content: ' ▼';
     }
 }
