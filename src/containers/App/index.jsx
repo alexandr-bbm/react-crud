@@ -6,6 +6,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import TableMates from 'components/TableMates';
+import PageHead from 'components/PageHead';
 import DialogConfirm from 'components/Dialog/Confirm';
 import DialogEdit from 'components/Dialog/Edit';
 import DialogCreate from 'components/Dialog/Create';
@@ -43,6 +44,11 @@ export default class App extends React.Component {
             <div>
                 <Grid>
                     <Row>
+                        <Col sm={6} smOffset={3} >
+                            <PageHead />
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col sm={4} smOffset={4} >
                             <TextField
                                 floatingLabelText="Filter"
@@ -63,7 +69,7 @@ export default class App extends React.Component {
                 </Grid>
                 <FloatingActionButton
                     mini={true}
-                    style={{'position': 'fixed', 'top': '20px', 'right': '20px'}}
+                    style={{'position': 'absolute', 'top': '120px', 'right': '20px'}}
                     onTouchTap={this.openCreateModal}
                 >
                     <ContentAdd />
